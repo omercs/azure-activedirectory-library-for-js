@@ -3,6 +3,7 @@ var app = angular.module('bull', ['ngRoute', 'AdalAngular']);
 
 app.config(function ($routeProvider, AuthenticationServiceProvider) {
 
+    // Home landing page is not protected by login. 
     $routeProvider.when("/home", {
         controller: "HomeController",
         templateUrl: "/App/Views/Home.html"
@@ -24,11 +25,16 @@ app.config(function ($routeProvider, AuthenticationServiceProvider) {
         templateUrl: "/App/Views/TodoDetail.html"
     });
 
+    $routeProvider.when("/TodoList/New", {
+        controller: "TodoDetailController",
+        templateUrl: "/App/Views/TodoNew.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
     // endpoint to resource mapping(optional)
     var endpoints = {
-        "/api/Values": "b6a68585-5287-45b2-ba82-383ba1f60932",        
+        "/api/Todo": "b6a68585-5287-45b2-ba82-383ba1f60932",        
     };
 
     AuthenticationServiceProvider.init(

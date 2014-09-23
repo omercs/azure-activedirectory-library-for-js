@@ -5,34 +5,35 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace OmerSample.Controllers
+namespace OwinSample.Controllers
 {
-    public class ContactsController : ApiController
+    [Authorize]
+    public class ValuesController : ApiController
     {
 
-        // GET api/<controller>
+        // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "person1", "person2" };
+            return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+        // GET api/values/5
         public string Get(int id)
         {
-            return "person" + id;
+            return "value";
         }
 
-        // POST api/<controller>
+        // POST api/values
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/<controller>/5
+        // PUT api/values/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/values/5
         public void Delete(int id)
         {
         }

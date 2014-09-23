@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular Adal Sample</title>
+</head>
+<body ng-app="demoApp" ng-controller="HomeController" ng-init="init()">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.25/angular-route.js"></script>
+    <script src="App/Scripts/App.js"></script>
+    <script src="App/Scripts/HomeController.js"></script>
+    <script src="App/Scripts/TodoDetailController.js"></script>
+    <script src="App/Scripts/TodoListController.js"></script>
+    <script src="App/Scripts/TodoService.js"></script>
+    <a href="#">Home</a>
+    <a href="#/TodoList">ToDo List</a>
+    <br />
+    
+    <div ng-view>
+        Your view will appear here.
+    </div>
+
+</body>
+</html>

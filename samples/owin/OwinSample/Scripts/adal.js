@@ -476,8 +476,10 @@ Adal.prototype.saveTokenFromHash = function (requestInfo) {
 
 Adal.prototype.getResourceForEndpoint = function (endpoint) {
     if (this.config && this.config.endpoints) {
-        if (this.config.endpoints.hasOwnProperty(endpoint) && !this._isEmpty(this.config.endpoints[endpoint])) {
-            return this.config.endpoints[endpoint];
+        for (var prop in this.config.endpoints) {
+            if (this.config.endpoints.hasOwnProperty(prop) && endpoint.indexOf(prop) == 0) {
+                return this.config.endpoints[prop];
+            }
         }
 
         // endpoint does not have resource defined
