@@ -1,5 +1,6 @@
 Active Directory Authentication Library (ADAL) for JavaScript 
 ====================================
+[![Build Status](https://travis-ci.org/AzureAD/azure-activedirectory-library-for-js.svg?branch=master)](https://travis-ci.org/AzureAD/azure-activedirectory-library-for-js)
 
 Active Directory Authentication Library for JavaScript (ADAL JS) helps you to use Azure AD for handling authentication in your single page applications.
 This preview is optimized for working together with AngularJS.
@@ -7,22 +8,24 @@ This preview is optimized for working together with AngularJS.
 ## The Library
 
 This is an early developer preview, released for the purpose of eliciting feedback.
-The current version is **0.0.1**.
+The current version is **0.0.4**.
  
 You have multiple ways of getting ADAL JS:
 
 Via CDN:
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.0.1/js/adal.min.js"></script>
+    <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.0.4/js/adal.min.js"></script>
+    <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.0.4/js/adal-angular.min.js"></script>
 
+CDN will be updated to latest version 0.0.4.
 
 Via Bower: 
 
     $ bower install adal-angular
 
-The source is [here](https://github.com/AzureAD/azure-activedirectory-library-for-js/tree/master/lib/adal.js).
-
+The adal.js source is [here](https://github.com/AzureAD/azure-activedirectory-library-for-js/tree/master/lib/adal.js).
+The adal-angular.js source is [here](https://github.com/AzureAD/azure-activedirectory-library-for-js/tree/master/lib/adal-angular.js).
 ## Samples, tests and documentation 
 
 For a sample demonstrating basic usage of ADAL JS please refer to [this repo](https://github.com/AzureADSamples/SinglePageApp-DotNet). 
@@ -53,7 +56,7 @@ Install grunt; call
 
 Below you can find a quick reference for the most common operations you need to perform to use adal js.
 
-1- Include references to angular.js libraries and adal.js in your main app page.
+1- Include references to angular.js libraries, adal.js, adal-angular.js in your main app page.
 2- include a reference to adal module
 ```js
 var app = angular.module('demoApp', ['ngRoute', 'AdalAngular']);
@@ -67,12 +70,11 @@ var app = angular.module('demoApp', ['ngRoute', 'AdalAngular']);
 adalAuthenticationServiceProvider.init(
         {
             // Config to specify endpoints and similar for your app
-            tenant: "52d4b072-9470-49fb-8721-bc3a1c9912a1",
-            clientId: "e9a5a8b6-8af7-4719-9821-0deef255f68e",
-            instance: "https://login.windows-ppe.net/",
+            tenant: "52d4b072-9470-49fb-8721-bc3a1c9912a1", // Optional by default, it sends common
+            clientId: "e9a5a8b6-8af7-4719-9821-0deef255f68e", // Required
             //localLoginUrl: "/login",  // optional
             //redirectUri : "your site", optional
-            endpoints: endpoints  // optional
+            endpoints: endpoints  // If you need to send CORS api requests.
         },
         $httpProvider   // pass http provider to inject request interceptor to attach tokens
         );
@@ -122,6 +124,7 @@ $routeProvider.
     <script src="/Scripts/angular.min.js"></script>
     <script src="/Scripts/angular-route.min.js"></script>
     <script src="/Scripts/adal.js"></script>
+    <script src="/Scripts/adal-angular.js"></script>
     <script src="App/Scripts/app.js"></script>
     <script src="App/Scripts/homeController.js"></script>
     <script src="App/Scripts/todoDetailController.js"></script>
@@ -170,5 +173,23 @@ app.controller('homeController', ['$scope', '$location', 'adalAuthenticationServ
 }]);
 
 
+```
+
+### Multi-Tenant
+
+By default, you have multi-tenant support. Adal will set tenant to 'common', if it is not specified in the config.
+
+### Cache Location
+Default storage location is sessionStorage. You can specify localStorage in the config as well.
+
+```js
+adalAuthenticationServiceProvider.init(
+        {
+            // Config to specify endpoints and similar for your app
+            clientId: 'cb68f72f...',
+            cacheLocation: 'localStorage' // optional cache location default is sessionStorage
+        },
+        $httpProvider   // pass http provider to inject request interceptor to attach tokens
+        );
 ```
 
